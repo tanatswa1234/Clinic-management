@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Contact Us</title>
+</head>
+
+<body>
+
+    <div class="wrapper main">
+        <div class="row">
+            <div class="side-image"></div>
+            <div class="right">
+                <div class="input-box">
+                    <header>Contact Us</header>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }}">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <form action="/send_message" method="POST">
+                        <div class="input-field">
+                            <input type="text" name="name" class="input" required>
+                            <label for="name">Name</label>
+                        </div>
+                        <div class="input-field">
+                            <input type="email" name="email" class="input" required>
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="input-field">
+                            <input type="text" name="subject" class="input" required>
+                            <label for="subject">Subject</label>
+                        </div>
+                        <div class="input-field">
+                            <textarea name="message" class="input" rows="4" style="resize: none;" required></textarea>
+                            <label for="message">Message</label>
+                        </div>
+                        <button type="submit" class="submit">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

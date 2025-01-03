@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Appointment Form</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .appointment-wrapper {
+            height: 100vh;
+            background-image: url("{{ url_for('static', filename='doc.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .appointment-form {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .appointment-form header {
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+
+        .input-field {
+            margin-bottom: 15px;
+        }
+
+        .input-field label {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .submit {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background: #40414a;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .submit:hover {
+            background: rgba(37, 95, 156, 0.937);
+        }
+    </style>
+</head>
+<body>
+    <div class="appointment-wrapper">
+        <form class="appointment-form" method="POST" action="{{ url_for('appointments') }}">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <header>Book an Appointment</header>
+
+            <div class="input-field">
+                <label for="patient_name">Patient Name</label>
+                <input type="text" class="input" id="patient_name" name="patient_name" required>
+            </div>
+
+            <div class="input-field">
+                <label for="email">Email</label>
+                <input type="email" class="input" id="email" name="email" required>
+            </div>
+
+            <div class="input-field">
+                <label for="appointment_date">Appointment Date</label>
+                <input type="date" class="input" id="appointment_date" name="appointment_date" required>
+            </div>
+
+            <div class="input-field">
+                <label for="appointment_time">Appointment Time</label>
+                <input type="time" class="input" id="appointment_time" name="appointment_time" required>
+            </div>
+
+            <div class="input-field">
+                <label for="notes">Notes (Optional)</label>
+                <textarea class="input" id="notes" name="notes" rows="4"></textarea>
+            </div>
+
+            <input type="submit" class="submit" value="Book Appointment">
+        </form>
+</body>
+</html>
